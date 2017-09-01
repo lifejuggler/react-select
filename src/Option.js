@@ -31,6 +31,9 @@ class Option extends React.Component {
 	}
 
 	handleMouseDown (event) {
+		if (event && event.type == 'mousedown' && event.button !== 0) {
+ 			return;
+ 		}
 		event.preventDefault();
 		event.stopPropagation();
 		this.props.onSelect(this.props.option, event);
