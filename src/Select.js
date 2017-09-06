@@ -667,10 +667,16 @@ class Select extends React.Component {
 		if (focusedIndex === -1) {
 			focusedIndex = 0;
 		}
+		let focusedObject = options[focusedIndex];
+		let focusedOption = focusedObject.option;
+
+		if (this.props.onArrowKeyFocus) {
+			this.props.onArrowKeyFocus(focusedOption);
+		}
 
 		this.setState({
-			focusedIndex: options[focusedIndex].index,
-			focusedOption: options[focusedIndex].option
+			focusedIndex: focusedObject.index,
+			focusedOption: focusedObject.option
 		});
 	}
 
@@ -1081,6 +1087,7 @@ Select.propTypes = {
     name: PropTypes.string,               // generates a hidden <input /> tag with this field name for html forms
     noResultsText: stringOrNode,          // placeholder displayed when there are no matching search results
     onBlur: PropTypes.func,               // onBlur handler: function (event) {}
+    onArrowKeyFocus: PropTypes.func,      // function to be executed when an option is focused from arrow key movement
     onBlurResetsInput: PropTypes.bool,    // whether input is cleared on blur
     onChange: PropTypes.func,             // onChange handler: function (newValue) {}
     onClose: PropTypes.func,              // fires when the menu is closed

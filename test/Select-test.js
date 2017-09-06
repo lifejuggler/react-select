@@ -330,6 +330,36 @@ describe('Select', () => {
 			expect(onChange, 'was called with', 'three');
 		});
 
+		describe('with the onArrowKeyFocus prop present', () => {
+			var onArrowKeyFocus;
+
+			beforeEach(() => {
+				options = [
+					{ value: 'one', label: 'One' },
+					{ value: 'two', label: 'Two' },
+					{ value: 'three', label: 'Three' }
+				];
+
+				onArrowKeyFocus = sinon.spy();
+
+				instance = createControl({
+					name: 'form-field-name',
+					value: 'one',
+					onArrowKeyFocus: onArrowKeyFocus,
+					options: options,
+					simpleValue: true,
+				});
+			});
+
+			it('calls onArrowKeyFocus with the new option', () => {
+				clickArrowToOpen();
+				pressDown();
+				expect(onArrowKeyFocus, 'was called with', options[1]);
+				pressDown();
+				expect(onArrowKeyFocus, 'was called with', options[2]);
+			});
+		});
+
 		describe('pressing escape', () => {
 			beforeEach(() => {
 				typeSearchText('h');
